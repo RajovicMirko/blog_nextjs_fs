@@ -1,9 +1,15 @@
-import { Palette } from "@mui/material";
+import { Palette, PaletteMode } from "@mui/material";
 
-export type IPalette = Palette;
+export type IPaletteResponse = Partial<Palette>;
 
-const palette: Partial<IPalette> = {
-  mode: "dark",
+export type IIPaletteFnProps = {
+  mode: PaletteMode;
 };
+
+export type IPaletteFn = (props: IIPaletteFnProps) => Partial<Palette>;
+
+const palette: IPaletteFn = ({ mode }) => ({
+  mode,
+});
 
 export default palette;

@@ -1,8 +1,8 @@
 import { CacheProvider, EmotionCache } from "@emotion/react";
-import { CssBaseline, ThemeProvider } from "@mui/material";
 import { PropsWithChildren } from "react";
 import createEmotionCache from "./createEmotionCache";
-import theme from "./theme";
+import { MuiModeProvider } from "./hooks/useMuiMode";
+import MuiThemeProvider from "./theme";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -16,15 +16,12 @@ type IMuiProviderReturn = JSX.Element | null;
 const MuiProvider = ({
   children,
   emotionCache = clientSideEmotionCache,
-}: PropsWithChildren<IMuiProvider>): IMuiProviderReturn => {
-  return (
-    <CacheProvider value={emotionCache}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        {children}
-      </ThemeProvider>
-    </CacheProvider>
-  );
-};
+}: PropsWithChildren<IMuiProvider>): IMuiProviderReturn => (
+  <CacheProvider value={emotionCache}>
+    <MuiModeProvider>
+      <MuiThemeProvider>{children}</MuiThemeProvider>
+    </MuiModeProvider>
+  </CacheProvider>
+);
 
 export default MuiProvider;

@@ -1,11 +1,20 @@
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import Seo from "src/components/SEO";
 
-const Home = (): JSX.Element => (
-  <>
-    <Seo title="Home" meta={metaMap} />
-    <main>test app</main>
-  </>
-);
+const Home = (): JSX.Element => {
+  const { push } = useRouter();
+
+  useEffect(() => {
+    const handleRedirect = () => {
+      push("/users");
+    };
+
+    handleRedirect();
+  }, [push]);
+
+  return <Seo meta={metaMap} />;
+};
 
 export default Home;
 

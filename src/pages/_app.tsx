@@ -1,4 +1,5 @@
 import type { AppProps } from "next/app";
+import Layout from "src/components/Layout";
 import MuiProvider, { IMuiProvider } from "src/style";
 
 export type IAppProps = AppProps & IMuiProvider;
@@ -8,7 +9,9 @@ export default function App(props: IAppProps) {
 
   return (
     <MuiProvider emotionCache={emotionCache}>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </MuiProvider>
   );
 }

@@ -1,5 +1,5 @@
 import type { AppProps } from "next/app";
-import MuiProvider, { IMuiProvider } from "src/styles";
+import MuiProvider, { IMuiProvider } from "src/stylesMui";
 
 export type IAppProps = AppProps & IMuiProvider;
 

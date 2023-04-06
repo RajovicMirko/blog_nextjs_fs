@@ -1,6 +1,8 @@
 import { CacheProvider, EmotionCache } from "@emotion/react";
+import { CssBaseline, StyledEngineProvider } from "@mui/material";
 import { PropsWithChildren, useEffect } from "react";
 import createEmotionCache from "./createEmotionCache";
+import GlobalStyles from "./GlobalStyles";
 import { MuiModeProvider } from "./hooks/useMuiMode";
 import MuiThemeProvider from "./theme";
 
@@ -18,19 +20,27 @@ const MuiProvider = ({
   emotionCache = clientSideEmotionCache,
 }: PropsWithChildren<IMuiProvider>): IMuiProviderReturn => {
   useEffect(() => {
-    // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector("#jss-server-side");
-    if (jssStyles && jssStyles?.parentElement) {
-      jssStyles.parentElement.removeChild(jssStyles);
-    }
+    () => {
+      const jssStyles = document.querySelector("#jss-ssr");
+
+      if (jssStyles && jssStyles.parentElement) {
+        jssStyles.parentElement.removeChild(jssStyles);
+      }
+    };
   }, []);
 
   return (
-    <CacheProvider value={emotionCache}>
-      <MuiModeProvider>
-        <MuiThemeProvider>{children}</MuiThemeProvider>
-      </MuiModeProvider>
-    </CacheProvider>
+    <StyledEngineProvider injectFirst>
+      <CacheProvider value={emotionCache}>
+        <MuiModeProvider>
+          <MuiThemeProvider>
+            <CssBaseline />
+            <GlobalStyles />
+            {children}
+          </MuiThemeProvider>
+        </MuiModeProvider>
+      </CacheProvider>
+    </StyledEngineProvider>
   );
 };
 

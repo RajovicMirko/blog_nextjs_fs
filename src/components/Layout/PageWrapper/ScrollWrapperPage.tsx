@@ -4,7 +4,7 @@ const ScrollWrapperPage = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   overflow: "hidden",
-  ...theme.mixins.pageHeight,
+  ...theme.mixins.mainHeight,
 }));
 
 export default ScrollWrapperPage;

@@ -1,5 +1,4 @@
-import { ThemeProvider } from "@emotion/react";
-import { createTheme, CssBaseline } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material";
 import { PropsWithChildren } from "react";
 import useMuiMode from "../hooks/useMuiMode";
 
@@ -18,12 +17,7 @@ const MuiThemeProvider = ({ children }: IMuiThemeProvider) => {
     palette: palette({ mode }),
   });
 
-  return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      {children}
-    </ThemeProvider>
-  );
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
 
 export default MuiThemeProvider;
